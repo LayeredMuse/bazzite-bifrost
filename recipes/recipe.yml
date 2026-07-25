@@ -13,7 +13,7 @@ modules:
   - type: dnf
     repos:
       files:
-        - https://pkg.terrapkg.com/terra-release.noarch.rpm
+        - https://raw.githubusercontent.com/terrapkg/subatomic-repos/main/terra.repo
       copr:
         - kylegospo/bazzite
     install:
