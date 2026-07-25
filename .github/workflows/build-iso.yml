@@ -1,0 +1,44 @@
+name: Build Bootable Install ISO
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build Bazzite Bifrost Image"]
+    types:
+      - completed
+    branches:
+      - main
+      - master
+
+jobs:
+  build-iso:
+    name: Generate Bazzite Bifrost ISO
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Generate Installer ISO
+        uses: jasonn3/build-container-installer@main
+        id: build
+        with:
+          image_name: bazzite-bifrost
+          image_repo: ghcr.io/${{ github.repository_owner }}
+          image_tag: latest
+          version: "41"
+          variant: "Bazzite"
+          iso_name: "bazzite-bifrost-latest.iso"
+
+      - name: Upload ISO Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bazzite-bifrost-installer-iso
+          path: |
+            ${{ steps.build.outputs.iso_path }}/${{ steps.build.outputs.iso_name }}
+            ${{ steps.build.outputs.iso_path }}/${{ steps.build.outputs.iso_name }}-CHECKSUM
+          if-no-files-found: error
+          retention-days: 14

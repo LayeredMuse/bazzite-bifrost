@@ -1,0 +1,34 @@
+name: bazzite-bifrost
+description: Norse-themed atomic Bazzite image bridging upstairs Niri/Noctalia desktop and downstairs Gamescope HDR TV sessions.
+base-image: ghcr.io/ublue-os/bazzite-nvidia
+image-version: latest
+
+modules:
+  - type: files
+    files:
+      - usr: /usr
+      - etc: /etc
+
+  - type: rpm-ostree
+    install:
+      - niri
+      - noctalia-shell
+      - gamescope-session
+      - wlr-randr
+      - pipewire
+      - wireplumber
+      - alacritty
+
+  - type: systemd
+    system:
+      disabled:
+        - sddm.service
+        - gdm.service
+      masked:
+        - sddm.service
+        - gdm.service
+
+  - type: kernel-cmdline
+    append:
+      - nvidia_drm.modeset=1
+      - nvidia_drm.fbdev=1

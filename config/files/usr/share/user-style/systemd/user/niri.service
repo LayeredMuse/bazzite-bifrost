@@ -1,0 +1,15 @@
+[Unit]
+Description=Niri Wayland Compositor + Noctalia Shell Session
+BindsTo=graphical-session.target
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/niri
+ExecStartPost=/usr/bin/noctalia-shell
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=default.target

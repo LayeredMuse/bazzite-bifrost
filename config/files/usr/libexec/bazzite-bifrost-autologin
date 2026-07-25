@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+# Dynamic autologin helper for TTY1 in Bazzite Bifrost
+# Resolves user with UID 1000 or first member of wheel group
+
+TARGET_USER=$(getent passwd | awk -F: '$3 == 1000 {print $1}')
+if [ -z "$TARGET_USER" ]; then
+    TARGET_USER=$(getent group wheel | awk -F: '{print $4}' | cut -d, -f1)
+fi
+
+if [ -n "$TARGET_USER" ]; then
+    exec /sbin/agetty --autologin "$TARGET_USER" --noclear "$@"
+else
+    exec /sbin/agetty --noclear "$@"
+fi
