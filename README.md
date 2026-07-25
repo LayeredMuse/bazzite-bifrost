@@ -66,6 +66,29 @@ ssh <user>@<host-ip> "systemctl --user stop niri.service gamescope-session.servi
 
 ---
 
+## 🔐 Setting Up Cosign Image Signing
+
+To sign your built images with [Cosign](https://github.com/sigstore/cosign) for verified `rpm-ostree` rebases:
+
+### Step 1: Generate Key Pair
+Run Cosign locally (or via container):
+```bash
+cosign generate-key-pair
+```
+This produces `cosign.key` (private key) and `cosign.pub` (public key).
+
+### Step 2: Add Secret to GitHub
+1. Navigate to your GitHub repository -> **Settings** -> **Secrets and variables** -> **Actions**.
+2. Click **New repository secret**.
+3. Set **Name**: `SIGNING_SECRET`.
+4. Set **Value**: Paste the full contents of your `cosign.key` file.
+5. (Optional) If you encrypted `cosign.key` with a passphrase, add another secret named `COSIGN_PASSWORD`.
+
+### Step 3: Add Public Key to Repository
+Copy `cosign.pub` into `config/files/etc/pki/containers/cosign.pub`.
+
+---
+
 ## 🚀 Deployment & Installation
 
 ### Option A: Install from ISO
@@ -74,14 +97,18 @@ ssh <user>@<host-ip> "systemctl --user stop niri.service gamescope-session.servi
 3. Boot the target machine from USB and follow the Anaconda installer instructions.
 
 ### Option B: Rebase an Existing Atomic System
-To rebase an existing Bazzite or Fedora Atomic installation to this custom image:
 
+#### Unverified (Before Cosign setup):
 ```bash
 rpm-ostree rebase ostree-unverified-registry:ghcr.io/<YOUR_GITHUB_USER>/bazzite-bifrost:latest
 ```
 
-After the rebase completes, reboot the system:
+#### Signed (With Cosign enabled):
+```bash
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/<YOUR_GITHUB_USER>/bazzite-bifrost:latest
+```
 
+After the rebase completes, reboot the system:
 ```bash
 systemctl reboot
 ```
