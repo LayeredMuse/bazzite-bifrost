@@ -2,7 +2,7 @@
 name: bazzite-bifrost
 description: Norse-themed atomic Bazzite image bridging upstairs Niri/Noctalia desktop and downstairs Gamescope HDR TV sessions.
 base-image: ghcr.io/ublue-os/bazzite-nvidia
-image-version: "44"
+image-version: latest
 
 modules:
   - type: files
