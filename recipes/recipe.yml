@@ -28,12 +28,10 @@ modules:
 
   - type: systemd
     system:
-      disabled:
-        - sddm.service
-        - gdm.service
       masked:
-        - sddm.service
         - gdm.service
+        - sddm.service
+        - lightdm.service
 
   - type: kargs
     kargs:
