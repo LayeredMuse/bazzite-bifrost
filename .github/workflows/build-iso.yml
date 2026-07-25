@@ -30,7 +30,7 @@ jobs:
           image_repo: ghcr.io/${{ github.repository_owner }}
           image_tag: latest
           version: "41"
-          variant: "Bazzite"
+          variant: "Silverblue"
           iso_name: "bazzite-bifrost-latest.iso"
 
       - name: Upload ISO Artifact
