@@ -10,7 +10,10 @@ modules:
       - usr: /usr
       - etc: /etc
 
-  - type: rpm-ostree
+  - type: dnf
+    repos:
+      - https://pkg.terrapkg.com/terra-release.noarch.rpm
+      - copr:kylegospo/bazzite
     install:
       - niri
       - noctalia-shell
