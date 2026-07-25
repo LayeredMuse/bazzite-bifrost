@@ -12,16 +12,19 @@ modules:
 
   - type: dnf
     repos:
-      - https://pkg.terrapkg.com/terra-release.noarch.rpm
-      - copr:kylegospo/bazzite
+      files:
+        - https://pkg.terrapkg.com/terra-release.noarch.rpm
+      copr:
+        - kylegospo/bazzite
     install:
-      - niri
-      - noctalia-shell
-      - gamescope-session
-      - wlr-randr
-      - pipewire
-      - wireplumber
-      - alacritty
+      packages:
+        - niri
+        - noctalia-shell
+        - gamescope-session
+        - wlr-randr
+        - pipewire
+        - wireplumber
+        - alacritty
 
   - type: systemd
     system:
