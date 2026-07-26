@@ -28,6 +28,7 @@ modules:
     remove:
       packages:
         - sddm
+        - plasma-login-manager
         - plasma-desktop
         - plasma-workspace
         - plasma-workspace-wayland
@@ -38,6 +39,7 @@ modules:
     system:
       masked:
         - display-manager.service
+        - plasma-login-manager.service
         - sddm.service
         - gdm.service
         - lightdm.service
