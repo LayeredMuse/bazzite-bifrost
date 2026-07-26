@@ -1,0 +1,8 @@
+# Default systemd boot target for Bazzite Bifrost (Bare TTY1)
+[Unit]
+Description=Multi-User System (Bare TTY1)
+Documentation=man:systemd.special(7)
+Requires=basic.target
+Conflicts=rescue.service rescue.target
+After=basic.target rescue.service rescue.target
+AllowIsolate=yes
