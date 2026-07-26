@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Lowercase Repository Owner
         id: repo_owner
@@ -38,7 +38,7 @@ jobs:
           iso_name: "bazzite-bifrost-latest.iso"
 
       - name: Upload ISO Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: bazzite-bifrost-installer-iso
           path: |
